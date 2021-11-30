@@ -102,5 +102,5 @@ functions:
 #       Description: "Description for the output"
 #       Value: "Some output value"
 layers:
-  test-layer:
+  randomWords:
     path: layer

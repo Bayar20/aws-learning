@@ -83,16 +83,16 @@
         "LogGroupName": "/aws/lambda/serverless-demo-dev-writeData"
       }
     },
-    "TestDashlayerLambdaLayer": {
+    "RandomWordsLambdaLayer": {
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "Content": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-demo/dev/1638247313724-2021-11-30T04:41:53.724Z/test-layer.zip"
+          "S3Key": "serverless/serverless-demo/dev/1638243474168-2021-11-30T03:37:54.168Z/randomWords.zip"
         },
-        "LayerName": "test-layer"
+        "LayerName": "randomWords"
       }
     },
     "ReadDataLambdaFunction": {
@@ -102,7 +102,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-demo/dev/1638247313724-2021-11-30T04:41:53.724Z/serverless-demo.zip"
+          "S3Key": "serverless/serverless-demo/dev/1638248325308-2021-11-30T04:58:45.308Z/serverless-demo.zip"
         },
         "Handler": "read-data-handler.readData",
         "Runtime": "nodejs12.x",
@@ -127,7 +127,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-demo/dev/1638247313724-2021-11-30T04:41:53.724Z/serverless-demo.zip"
+          "S3Key": "serverless/serverless-demo/dev/1638248325308-2021-11-30T04:58:45.308Z/serverless-demo.zip"
         },
         "Handler": "write-data-handler.writeData",
         "Runtime": "nodejs12.x",
@@ -145,7 +145,7 @@
         "WriteDataLogGroup"
       ]
     },
-    "ReadDataLambdaVersionSdzRdPwBrtcDs86YYWDHhxRomkuAceojSFUr7ggo9s": {
+    "ReadDataLambdaVersionPlBdcJRcOBficj9Rjz3p5R8Rp23b1gmmbK1aEcE00I": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
@@ -155,7 +155,7 @@
         "CodeSha256": "w/zzdQbW69+8DMXeqfp8f6/eSMcXT04niYqG2/u5Yac="
       }
     },
-    "WriteDataLambdaVersionQFIvpATsfL1MxfhZRUf8aThXJr8M9Ug4QBDtAi31NMw": {
+    "WriteDataLambdaVersionMPmRVu6Lrq2wSMJdHA7rgDikfG06hYTSU2MIrRi5Y": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
@@ -615,7 +615,7 @@
         "WriteDataLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1638247298272": {
+    "ApiGatewayDeployment1638248309583": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -713,33 +713,33 @@
         "Name": "sls-serverless-demo-dev-ServerlessDeploymentBucketName"
       }
     },
-    "TestDashlayerLambdaLayerQualifiedArn": {
+    "RandomWordsLambdaLayerQualifiedArn": {
       "Description": "Current Lambda layer version",
       "Value": {
-        "Ref": "TestDashlayerLambdaLayer"
+        "Ref": "RandomWordsLambdaLayer"
       },
       "Export": {
-        "Name": "sls-serverless-demo-dev-TestDashlayerLambdaLayerQualifiedArn"
+        "Name": "sls-serverless-demo-dev-RandomWordsLambdaLayerQualifiedArn"
       }
     },
-    "TestDashlayerLambdaLayerHash": {
+    "RandomWordsLambdaLayerHash": {
       "Description": "Current Lambda layer hash",
-      "Value": "0bc46c27504acdf785cda3b3b06c2213e940ee0f",
+      "Value": "593652b79666fe290b9a9f08e7e7b7f647a5807c",
       "Export": {
-        "Name": "sls-serverless-demo-dev-TestDashlayerLambdaLayerHash"
+        "Name": "sls-serverless-demo-dev-RandomWordsLambdaLayerHash"
       }
     },
-    "TestDashlayerLambdaLayerS3Key": {
+    "RandomWordsLambdaLayerS3Key": {
       "Description": "Current Lambda layer S3Key",
-      "Value": "serverless/serverless-demo/dev/1638247313724-2021-11-30T04:41:53.724Z/test-layer.zip",
+      "Value": "serverless/serverless-demo/dev/1638243474168-2021-11-30T03:37:54.168Z/randomWords.zip",
       "Export": {
-        "Name": "sls-serverless-demo-dev-TestDashlayerLambdaLayerS3Key"
+        "Name": "sls-serverless-demo-dev-RandomWordsLambdaLayerS3Key"
       }
     },
     "ReadDataLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ReadDataLambdaVersionSdzRdPwBrtcDs86YYWDHhxRomkuAceojSFUr7ggo9s"
+        "Ref": "ReadDataLambdaVersionPlBdcJRcOBficj9Rjz3p5R8Rp23b1gmmbK1aEcE00I"
       },
       "Export": {
         "Name": "sls-serverless-demo-dev-ReadDataLambdaFunctionQualifiedArn"
@@ -748,7 +748,7 @@
     "WriteDataLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "WriteDataLambdaVersionQFIvpATsfL1MxfhZRUf8aThXJr8M9Ug4QBDtAi31NMw"
+        "Ref": "WriteDataLambdaVersionMPmRVu6Lrq2wSMJdHA7rgDikfG06hYTSU2MIrRi5Y"
       },
       "Export": {
         "Name": "sls-serverless-demo-dev-WriteDataLambdaFunctionQualifiedArn"
