@@ -3,8 +3,6 @@ service: serverless-demo
 #app: your-app-name
 #org: your-org-name
 
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
 frameworkVersion: "2"
 
 provider:
@@ -13,13 +11,11 @@ provider:
   lambdaHashingVersion: 20201221
   endpointType: REGIONAL
 
-# you can overwrite defaults here
   stage: dev
   region: us-east-2
 
-# you can add statements to the Lambda function's IAM Role here
   iam:
-    role: arn:aws:iam::594990524571:role/dynamodb-full-access
+    role: arn:aws:iam::594990524571:role/s3-full-access
 
 # you can define service wide environment variables here
 #  environment:
@@ -38,27 +34,56 @@ plugins:
   - serverless-offline
 
 functions:
-  readData:
-    handler: read-data-handler.readData
+  provideUrl:
+    handler: api/handler.provideUrl
     events:
       - http:
-          path: attendances
+          path: /provideUrl
           integration: lambda
           method: get
-          cors: true
-    layers:
-      - {Ref: RandomWordsLambdaLayer}
-  writeData:
-    handler: write-data-handler.writeData
-    events:
-      - http:
-         path: attendances
-         integration: lambda
-         method: post
-         cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - name
+              - type
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
+      - s3: 
+          bucket: serverless-bbucket
+          event: s3:ObjectCreated:*
+          existing: true
+  # readData:
+  #   handler: api/games.readData
+  #   events:
+  #     - http:
+  #         path: games
+  #         integration: lambda
+  #         method: get
+  #         cors: true
+  # writeData:
+  #   handler: api/games.writeData
+  #   events:
+  #     - http:
+  #         path: games
+  #         integration: lambda
+  #         method: post
+  #         cors: true
+  # checkByUser:
+  #   handler: api/games.checkByUser
+  #   events:
+  #     - http:
+  #         path: user
+  #         integration: lambda
+  #         method: get
+  #         cors: true
 #      - websocket: $connect
-    layers:
-      - {Ref: RandomWordsLambdaLayer}
 #      - schedule: rate(10 minutes)
 #      - sns: greeter-topic
 #      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
@@ -91,16 +116,33 @@ functions:
 #      variable2: value2
 
 # you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
+# resources:
+#   Resources:
+#     Games:
+#       Type: AWS::DynamoDB::Table
+#       Properties:
+#         TableName: Games
+#         AttributeDefinitions:
+#           - AttributeName: "user_id"
+#             AttributeType: S
+#           - AttributeName: "game_id"
+#             AttributeType: S
+#         KeySchema:
+#           - AttributeName: "user_id"
+#             KeyType: "HASH"
+#           - AttributeName: "game_id"
+#             KeyType: "RANGE"
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+#  NewResource:
+#    Type: AWS::S3::Bucket
+#    Properties:
+#      BucketName: my-new-bucket
 #  Outputs:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
-layers:
-  randomWords:
-    path: layer
+# layers:
+#   randomWords:
+#     path: layer
