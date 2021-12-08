@@ -11,11 +11,11 @@ provider:
   lambdaHashingVersion: 20201221
   endpointType: REGIONAL
 
-  stage: dev
+  stage: test
   region: us-east-2
 
-  iam:
-    role: arn:aws:iam::594990524571:role/s3-full-access
+  # iam:
+  #   role: arn:aws:iam::594990524571:role/s3-full-access
 
 # you can define service wide environment variables here
 #  environment:
@@ -32,15 +32,19 @@ provider:
 plugins:
   - serverless-plugin-include-dependencies
   - serverless-offline
+  - serverless-iam-roles-per-function
+
+custom:
+  bucketName: bayaar-bucket
 
 functions:
   provideUrl:
-    handler: api/handler.provideUrl
+    handler: api/provideUrl.handler
     events:
       - http:
           path: /provideUrl
           integration: lambda
-          method: get
+          method: GET
           cors:
             origin: '*'
             headers:
@@ -55,10 +59,74 @@ functions:
               - Access-Control-Allow-Headers
               - Access-Control-Allow-Origin
             allowCredentials: false
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "s3:*"
+        Resource: arn:aws:s3:::${self:custom.bucketName}/*
+  checkFace:
+    handler: api/checkFace.handler
+    events:
+      - http:
+          path: /checkFace
+          integration: lambda
+          method: GET
+          cors: true
       - s3: 
-          bucket: serverless-bbucket
+          bucket: ${self:custom.bucketName}
           event: s3:ObjectCreated:*
-          existing: true
+          rules:
+            - prefix: faces/
+          existing: true  
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "rekognition:*"
+        Resource: "*"
+  findFace:
+    handler: api/findFace.handler
+    events:
+      - http:
+          path: /findFace
+          integration: lambda
+          method: GET
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - name
+              - type
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "rekognition:*"
+        Resource: "*"
+      - Effect: "Allow"
+        Action:
+          - "s3:*"
+        Resource: arn:aws:s3:::${self:custom.bucketName}/*
+
+resources:
+  Resources:
+    NewResource:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.bucketName}
+        CorsConfiguration:
+          CorsRules:
+            - AllowedMethods:
+                - GET
+                - PUT
+              AllowedOrigins:
+                - "*"
   # readData:
   #   handler: api/games.readData
   #   events:

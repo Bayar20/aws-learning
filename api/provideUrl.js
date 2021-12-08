@@ -9,9 +9,9 @@ const s3 = new AWS.S3({
   apiVersion: "4"
 });
 
-module.exports.provideUrl = (event, context, callback) => {
+module.exports.handler = (event, context, callback) => {
   const { name, type } = event.headers;
-  const myBucket = "serverless-bbucket";
+  const myBucket = "bayaar-bucket";
 
   s3.getSignedUrl(
     "putObject",
