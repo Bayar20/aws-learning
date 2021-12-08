@@ -6,6 +6,7 @@ AWS.config.update({
 });
 
 const rek = new AWS.Rekognition();
+const docClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handler = async (event) => {
   console.log(event);
@@ -13,7 +14,7 @@ module.exports.handler = async (event) => {
   const { key } = s3.object;
   const id = key.split("/")[1];
 
-  let params = {
+  const indexParams = {
     CollectionId: "MyCollection",
     DetectionAttributes: [],
     ExternalImageId: id,
@@ -25,7 +26,37 @@ module.exports.handler = async (event) => {
     },
   };
 
-  const response = await rek.indexFaces(params).promise();
-  console.log(response.FaceRecords[0])
-  return { message: "success", response };
+  const detectParams = {
+    Image: {
+      S3Object: {
+        Bucket: "bayaar-bucket",
+        Name: key,
+      },
+    },
+    Attributes: ['ALL']
+  };
+
+  const indexResponse = await rek.indexFaces(indexParams).promise();
+  const detectResponse = await rek.detectFaces(detectParams).promise()
+  const { Type, Confidence } = detectResponse.FaceDetails[0].Emotions[0]
+
+  const userId = `userId:${id}`
+
+  const timestamp = new Date().toISOString()
+  const params = {
+    TableName: "attendance",
+    Item: {
+      userId, confidence: Confidence, emotion: Type, timestamp
+    }
+  }
+
+  try {
+    await docClient.put(params).promise()
+  } catch (err) {
+    return err.message
+  }
+
+  return {
+    "message": "Item successfully added"
+  }
 };
