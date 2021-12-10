@@ -20,10 +20,10 @@ module.exports.handler = async (event) => {
         Name: `uploads/${name}`,
       },
     },
-    MaxFaces: 3
+    MaxFaces: 1
   };
+  
+    const response = await rek.searchFacesByImage(params).promise();
+    return response;
 
-  const response = await rek.searchFacesByImage(params).promise();
-
-  return response.FaceMatches[0].Face.ExternalImageId;
 };

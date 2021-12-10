@@ -83,10 +83,6 @@ functions:
         Action:
           - "rekognition:*"
         Resource: "*"
-      - Effect: "Allow"
-        Action:
-          - "dynamodb:*"
-        Resource: "*"
   findFace:
     handler: api/findFace.handler
     events:

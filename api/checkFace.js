@@ -52,7 +52,9 @@ module.exports.handler = async (event) => {
 
   try {
     await docClient.put(params).promise()
+    console.log("success")
   } catch (err) {
+    console.log(err.message)
     return err.message
   }
 

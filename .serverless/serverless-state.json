@@ -187,7 +187,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-demo/test/1638963821786-2021-12-08T11:43:41.786Z/serverless-demo.zip"
+                "S3Key": "serverless/serverless-demo/test/1639013989090-2021-12-09T01:39:49.090Z/serverless-demo.zip"
               },
               "Handler": "api/provideUrl.handler",
               "Runtime": "nodejs12.x",
@@ -213,7 +213,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-demo/test/1638963821786-2021-12-08T11:43:41.786Z/serverless-demo.zip"
+                "S3Key": "serverless/serverless-demo/test/1639013989090-2021-12-09T01:39:49.090Z/serverless-demo.zip"
               },
               "Handler": "api/checkFace.handler",
               "Runtime": "nodejs12.x",
@@ -239,7 +239,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-demo/test/1638963821786-2021-12-08T11:43:41.786Z/serverless-demo.zip"
+                "S3Key": "serverless/serverless-demo/test/1639013989090-2021-12-09T01:39:49.090Z/serverless-demo.zip"
               },
               "Handler": "api/findFace.handler",
               "Runtime": "nodejs12.x",
@@ -258,34 +258,34 @@
               "FindFaceLogGroup"
             ]
           },
-          "ProvideUrlLambdaVersionFvhx9LoaL1o2jtoeXFR0PqLAL8hZNW9Z721VRjFHeLo": {
+          "ProvideUrlLambdaVersion18NQMAjjaiLdUCclnLD4LKAoZ451jzOzRZcIJkfHZI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ProvideUrlLambdaFunction"
               },
-              "CodeSha256": "nfy6LpIBqVr6XtIDNJhZT72lTNukkZJBgwkt8vgbkgc="
+              "CodeSha256": "hdAMGRIMdnsvVtD8qZ+7dxL0og+qR9nPlh3oJCDQaVw="
             }
           },
-          "CheckFaceLambdaVersionqb6f9apFj1EvFpov4PNxVDillgxR0qCcSafmYvG5Ro": {
+          "CheckFaceLambdaVersionKuzAOukP5qAE1ULgGZLTHcR6yVPbKYf7tF1oyqp4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CheckFaceLambdaFunction"
               },
-              "CodeSha256": "nfy6LpIBqVr6XtIDNJhZT72lTNukkZJBgwkt8vgbkgc="
+              "CodeSha256": "hdAMGRIMdnsvVtD8qZ+7dxL0og+qR9nPlh3oJCDQaVw="
             }
           },
-          "FindFaceLambdaVersionlRsIOYDvsWlTV2nDeF3Kxri4oslWaZVeXyuKqVTmNo": {
+          "FindFaceLambdaVersionOJeN0gmEoDnyA5aslwHJFnEFcbZ4CYFcIWsWaYCh8": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindFaceLambdaFunction"
               },
-              "CodeSha256": "nfy6LpIBqVr6XtIDNJhZT72lTNukkZJBgwkt8vgbkgc="
+              "CodeSha256": "hdAMGRIMdnsvVtD8qZ+7dxL0og+qR9nPlh3oJCDQaVw="
             }
           },
           "CheckFaceCustomS31": {
@@ -412,7 +412,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-demo/test/1638963821786-2021-12-08T11:43:41.786Z/custom-resources.zip"
+                "S3Key": "serverless/serverless-demo/test/1639013989090-2021-12-09T01:39:49.090Z/custom-resources.zip"
               },
               "FunctionName": "serverless-demo-test-custom-resource-existing-s3",
               "Handler": "s3/handler.handler",
@@ -1189,7 +1189,7 @@
               "FindFaceLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1638963816160": {
+          "ApiGatewayDeployment1639013982548": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -1446,6 +1446,13 @@
                           "rekognition:*"
                         ],
                         "Resource": "*"
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "dynamodb:*"
+                        ],
+                        "Resource": "*"
                       }
                     ]
                   }
@@ -1584,7 +1591,7 @@
           "ProvideUrlLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ProvideUrlLambdaVersionFvhx9LoaL1o2jtoeXFR0PqLAL8hZNW9Z721VRjFHeLo"
+              "Ref": "ProvideUrlLambdaVersion18NQMAjjaiLdUCclnLD4LKAoZ451jzOzRZcIJkfHZI"
             },
             "Export": {
               "Name": "sls-serverless-demo-test-ProvideUrlLambdaFunctionQualifiedArn"
@@ -1593,7 +1600,7 @@
           "CheckFaceLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CheckFaceLambdaVersionqb6f9apFj1EvFpov4PNxVDillgxR0qCcSafmYvG5Ro"
+              "Ref": "CheckFaceLambdaVersionKuzAOukP5qAE1ULgGZLTHcR6yVPbKYf7tF1oyqp4"
             },
             "Export": {
               "Name": "sls-serverless-demo-test-CheckFaceLambdaFunctionQualifiedArn"
@@ -1602,7 +1609,7 @@
           "FindFaceLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindFaceLambdaVersionlRsIOYDvsWlTV2nDeF3Kxri4oslWaZVeXyuKqVTmNo"
+              "Ref": "FindFaceLambdaVersionOJeN0gmEoDnyA5aslwHJFnEFcbZ4CYFcIWsWaYCh8"
             },
             "Export": {
               "Name": "sls-serverless-demo-test-FindFaceLambdaFunctionQualifiedArn"
@@ -1806,7 +1813,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "ProvideUrlLambdaVersionFvhx9LoaL1o2jtoeXFR0PqLAL8hZNW9Z721VRjFHeLo"
+        "versionLogicalId": "ProvideUrlLambdaVersion18NQMAjjaiLdUCclnLD4LKAoZ451jzOzRZcIJkfHZI"
       },
       "checkFace": {
         "handler": "api/checkFace.handler",
@@ -1858,6 +1865,9 @@
         "iamRoleStatements": [
           {
             "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"CheckFaceIamRoleLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][1]"
+          },
+          {
+            "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"CheckFaceIamRoleLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][2]"
           }
         ],
         "name": "serverless-demo-test-checkFace",
@@ -1866,7 +1876,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "CheckFaceLambdaVersionqb6f9apFj1EvFpov4PNxVDillgxR0qCcSafmYvG5Ro"
+        "versionLogicalId": "CheckFaceLambdaVersionKuzAOukP5qAE1ULgGZLTHcR6yVPbKYf7tF1oyqp4"
       },
       "findFace": {
         "handler": "api/findFace.handler",
@@ -1921,7 +1931,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "FindFaceLambdaVersionlRsIOYDvsWlTV2nDeF3Kxri4oslWaZVeXyuKqVTmNo"
+        "versionLogicalId": "FindFaceLambdaVersionOJeN0gmEoDnyA5aslwHJFnEFcbZ4CYFcIWsWaYCh8"
       }
     },
     "resources": {
@@ -1973,10 +1983,10 @@
     },
     "layers": {},
     "isDashboardMonitoringPreconfigured": false,
-    "artifact": "/Users/bayarsaikhan/Desktop/aws-learning/serverless-demo/.serverless/serverless-demo.zip"
+    "artifact": "/Users/bayar/Desktop/aws-learning/serverless-demo/.serverless/serverless-demo.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/serverless-demo/test/1638963821786-2021-12-08T11:43:41.786Z",
+    "artifactDirectoryName": "serverless/serverless-demo/test/1639013989090-2021-12-09T01:39:49.090Z",
     "artifact": "serverless-demo.zip"
   }
 }
